@@ -36,4 +36,17 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function post()
+    {
+        return $this->hasMany('Acl\Post');
+    }
+    public function isAdmin()
+    {
+        return $this->email == 'admin@styde.net';
+    } 
+    public function isAutor(Post $post)
+    {
+        return $this->id == $post->user_id;
+    }
 }
