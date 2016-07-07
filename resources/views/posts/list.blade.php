@@ -2,6 +2,8 @@
 
 @section('content')
 <h2>Posts</h2>
+
+{!! Alert::render() !!}
 <table class="table">
 	<tr>
 			<th>ID</th>

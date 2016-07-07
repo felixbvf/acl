@@ -9,6 +9,7 @@ use Acl\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Acl\Post;
+use Styde\Html\Facades\Alert;
 
 class PostController extends Controller
 {
@@ -66,7 +67,8 @@ class PostController extends Controller
         Auth::loginUsingId(2);
         $post = Post::findOrFail($id);
         if (Gate::denies('update-post', $post)){
-            return redirect('/');
+            Alert::danger('No tiene permisos para editar este post');
+            return redirect('posts');
         }
         return $post->title;
     }
