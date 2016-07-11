@@ -34,12 +34,7 @@ class PostController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
         //
@@ -64,12 +59,16 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        Auth::loginUsingId(2);
+        //Auth::loginUsingId(2);  //se traslado a route
         $post = Post::findOrFail($id);
-        if (Gate::denies('update-post', $post)){
-            Alert::danger('No tiene permisos para editar este post');
-            return redirect('posts');
-        }
+        $this->authorize('update-post',$post);
+        
+        //reemplaza al siguiente codigo gate
+           /* if (Gate::denies('update-post', $post)){
+                Alert::danger('No tiene permisos para editar este post');
+                return redirect('posts');
+            }*/
+
         return $post->title;
     }
 
